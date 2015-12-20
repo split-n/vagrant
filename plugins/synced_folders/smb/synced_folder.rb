@@ -22,11 +22,6 @@ module VagrantPlugins
           return false
         end
 
-        if !Vagrant::Util::Platform.windows_admin?
-          raise Errors::WindowsAdminRequired if raise_error
-          return false
-        end
-
         psv = Vagrant::Util::PowerShell.version.to_i
         if psv < 3
           if raise_error
@@ -72,7 +67,7 @@ module VagrantPlugins
           args << "-share_name" << data[:smb_id]
           #args << "-host_share_username" << @creds[:username]
 
-          r = Vagrant::Util::PowerShell.execute(script_path, *args)
+          r = Vagrant::Util::PowerShell.execute_as_admin(script_path, *args)
           if r.exit_code != 0
             raise Errors::DefineShareFailed,
               host: hostpath.to_s,
