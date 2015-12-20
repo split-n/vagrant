@@ -32,6 +32,14 @@ module Vagrant
         Subprocess.execute(*command, &block)
       end
 
+      # Execute a powershell script as Administrator.
+      #
+      # @param [String] path Path to the PowerShell script to execute.
+      # @return [Subprocess::Result]
+      def self.execute_as_admin(path, *args, **opts, &block)
+        raise # todo
+      end
+
       # Returns the version of PowerShell that is installed.
       #
       # @return [String]
